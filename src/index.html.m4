@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <script type="importmap">include(`importmap.json')
+    <script type="importmap">m4_include(`importmap.json')
     </script>
   </head>
   <body>

@@ -15,8 +15,8 @@ build: public/index.html public/test.html
 test:
 	open http://localhost:1355/test.html
 
-public/%.html: src/%.html.m4 $(wildcard ./importmap*.json)
-	m4 $< > $@
+public/%.html: src/%.html.m4 $(wildcard ./importmap*.json) $(wildcard ./public/**.js)
+	m4 --define=BUSTER=$(shell openssl rand 6 | base64) --prefix-builtins $< > $@
 
 lint:
 	deno lint
