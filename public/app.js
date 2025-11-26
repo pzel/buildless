@@ -7,7 +7,7 @@ export function App() {
 
   return html`
     <div>
-      <p>Count: ${count}</p>
+      <p>Count: <span data-testid="counter">${count}</span></p>
       <button onClick=${() => setCount(count + 1)}>Increment</button>
     </div>
   `;

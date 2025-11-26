@@ -4,7 +4,6 @@
 		"preact/": "https://esm.sh/preact@10.23.1/",
 		"preact/signals": "https://esm.sh/@preact/signals@1.3.0?external=preact",
 		"htm/preact": "https://esm.sh/htm@3.1.1/preact?external=preact",
-    "testing-library": "https://unpkg.com/@testing-library/dom@8.17.1/dist/@testing-library/dom.umd.js",
     "mocha": "https://unpkg.com/mocha@9.2.2/mocha.js",
     "chai": "https://cdn.jsdelivr.net/npm/chai@5.1.1/+esm",
     "@test/": "/public/test/"

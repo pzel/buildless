@@ -8,5 +8,5 @@
   <body>
     <div id="root"></div>
   </body>
-  <script type="module" src="/app.js"> </script>
+  <script type="module" src="/main.js"> </script>
 </html>

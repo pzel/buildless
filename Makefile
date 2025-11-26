@@ -7,7 +7,7 @@ stop:
 	pkill -fec 'http.server 1355'
 
 watch:
-	watchexec --watch=./public --exts=js,json,m4 $(MAKE) build
+	watchexec --watch=./ --watch=./public --exts=js,json,m4 $(MAKE) build
 
 build: public/index.html public/test.html
 	@echo "BUILT"
