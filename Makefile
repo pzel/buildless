@@ -1,4 +1,4 @@
-.PHONY: build serve stop watch test lint
+.PHONY: serve stop watch build test see lint
 
 serve:
 	(cd public && ../serve1355 >../serve1355.log 2>&1) &
@@ -15,8 +15,13 @@ build: public/index.html public/test.html
 test:
 	open http://localhost:1355/test.html
 
-public/%.html: src/%.html.m4 $(wildcard ./importmap*.json) $(wildcard ./public/**.js)
-	m4 --define=M4_BUSTER=$(shell openssl rand 6 | base64) --prefix-builtins $< > $@
+see:
+	open http://localhost:1355/index.html
 
 lint:
 	deno lint
+
+
+public/%.html: src/%.html.m4 $(wildcard ./importmap*.json) $(wildcard ./public/**.js)
+	m4 --define=M4_BUSTER=$(shell openssl rand 6 | base64) --prefix-builtins $< > $@
+

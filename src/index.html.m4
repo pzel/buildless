@@ -10,5 +10,5 @@
   <body>
     <div id="root"></div>
   </body>
-  <script type="module" src="/main.js?v=M4_BUSTER"> </script>
+  <script type="module" src="/main.js"> </script>
 </html>

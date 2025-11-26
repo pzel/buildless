@@ -1,4 +1,4 @@
 import { mkApp } from "./app.js";
 
 console.log("Starting app");
-mkApp(document.getElementById("root"));
+mkApp("MY-DB", document.getElementById("root"));
