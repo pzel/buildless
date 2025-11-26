@@ -29,4 +29,19 @@ describe("The counter app", () => {
     });
   });
 
+  it("can be decremented too", async () => {
+    const div = document.createElement('div');
+    const res = mkApp(div);
+    tl.getByText(div, 'Increment').click();
+    await tl.waitFor(() => {
+      expect(tl.queryByTestId(div, "counter").innerText).to.be.equal("1");
+    })
+
+    tl.getByText(div, 'Decrement').click();
+    await tl.waitFor(() => {
+      expect(tl.queryByTestId(div, "counter").innerText).to.be.equal("0");
+    })
+
+  });
+
 });

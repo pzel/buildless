@@ -22,13 +22,14 @@
    <div id="mocha"></div>
     <script src="https://unpkg.com/mocha/mocha.js"></script>
     <script class="mocha-init">
-      mocha.setup("bdd");
-      mocha.checkLeaks();
+     mocha.setup({ui: "bdd",
+                  slow: "200", //ms
+                  checkLeaks: "true"
+     });
     </script>
     <script type="module" src="test.js"></script>
     <script type="module" class="mocha-exec">
      mocha.run();
     </script>
   </body>
-
 </html>
