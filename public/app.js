@@ -3,7 +3,7 @@ import { render } from "preact";
 import { html }  from "htm/preact";
 
 export function App() {
-  let [count, setCount] = useState(0);
+  const [count, setCount] = useState(0);
 
   return html`
     <div>
@@ -14,9 +14,6 @@ export function App() {
   `;
 }
 
-
 export function mkApp(element) {
   return render(html`<${App}/>`, element);
 }
-
-
