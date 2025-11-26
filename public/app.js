@@ -1,17 +1,30 @@
 import { useState } from "preact/hooks";
-import { render } from "preact";
+import { render, Component } from "preact";
 import { html }  from "htm/preact";
 
-export function App() {
-  const [count, setCount] = useState(0);
+export class App extends Component {
+  constructor() {
+    super();
+	  this.state = {count: 0 }
+  }
 
-  return html`
+  incr = () => {
+    this.setState({count: this.state.count + 1});
+  }
+
+  decr = () => {
+    this.setState({count: this.state.count - 1});
+  }
+
+  render () {
+    return html`
     <div>
-      <p>Count: <span data-testid="counter">${count}</span></p>
-      <button onClick=${() => setCount(count + 1)}>Increment</button>
-      <button onClick=${() => setCount(count - 1)}>Decrement</button>
+      <p>Count: <span data-testid="counter">${this.state.count}</span></p>
+      <button onClick=${this.incr}>Increment</button>
+      <button onClick=${this.decr}>Decrement</button>
     </div>
-  `;
+  `
+  }
 }
 
 export function mkApp(element) {

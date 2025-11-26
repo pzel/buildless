@@ -1,3 +1,3 @@
 # this is only useful locally anyway
 public/test.html
-serve-lf3.log
+serve*.log

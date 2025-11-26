@@ -15,7 +15,7 @@ describe("Sanity check", () => {
 });
 
 describe("The counter app", () => {
-  it("has a default counter of 1", () => {
+  it("has a default counter of 0", () => {
     const div = document.createElement('div');
     mkApp(div);
 
