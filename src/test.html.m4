@@ -9,6 +9,7 @@
     <script type="importmap">m4_include(`importmap-test.json')</script>
   </head>
   <body>
+    <h1><a href="/">BACK TO APP</a></h1>
     <div id="mocha"></div>
     <script src="https://unpkg.com/mocha/mocha.js"></script>
     <script class="mocha-init"> mocha.setup({ui: "bdd", slow: /* ms */ "200", timeout: '2000', checkLeaks: "true"})</script>
