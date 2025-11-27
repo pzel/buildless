@@ -2,10 +2,9 @@
 
 ## TLDR: How to run this
 
-`make serve`
-`make test`
+`make serve`, then `make test`
 
-You will need `make`, `openssl`, `python3` and `m4` avaialable on your machine,
+You will need `make`, `openssl`, `python3` and `m4` available on your machine,
 which you likely do. You'll also need a modern browser, which you likely have.
 
 For extra quality-of-life features, you'll need
@@ -49,7 +48,7 @@ and reopening the browser.
  - [x] No npm
  - [x] No node.js
  - [x] No babel/esbuild/etc. 
- - [x] Preact-driven interactive web app
+ - [x] A Preact-driven interactive web app
  - [x] A realistic test-driven-development workflow (given the above constraints)
 
 ## How they were achieved
@@ -80,7 +79,8 @@ case of testing libraries. I made the assumption in my test code that the
 global environment (`globalThis`) of the application will contain
 `TestingLibraryDom` and the mocha BDD helpers (`describe`, `it`). The
 application code on the other hand assumes `PouchDB` is available in the global
-namespace.
+namespace. Then, I simply included the old-school UMD modules as `<script>`s in
+my html source.
 
 ### 2. No node.js
 
@@ -90,12 +90,12 @@ at all.
 ### 3. No babel/esbuild/etc. 
 
 Because of ESM support in the browser, there is no need to transpile and bundle
-JS code. This precludes it working in older browsers, but support for them was
-not on my list of goals anyway. 
+JS code. This prevents the app from working in older browsers, but support for
+old browsers was not on my list of goals.
 
 I do have a bit of a "poor-man's templating system" for the static html files
-(and import maps in particular) that relies on [GNU
-m4](https://www.gnu.org/software/m4/) to inject import maps into html files.
+whic relies on [GNU m4](https://www.gnu.org/software/m4/) to inject import maps
+verbatim into html, as import maps don't support the `src=` attribute.
 Technically, it can be extended to arbitrary content, but I haven't found the
 need so far.
 
