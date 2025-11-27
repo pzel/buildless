@@ -23,7 +23,7 @@ export class CounterList extends Component {
   }
 
   render() {
-    const items = this.state.counters.map((c) => html`<li>${c.n}</li>`)
+    const items = this.state.counters.map((c) => html`<li role="counter-list-item">${c.n}</li>`)
     return html`<ul data-testid="counter-list">${items}</ul>`;
   }
 }

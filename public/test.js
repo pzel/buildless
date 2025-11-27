@@ -5,6 +5,7 @@ import { App, mkApp } from "./app.js";
 const tl = globalThis.TestingLibraryDom
 const txt = tl.getByText;
 const qid = tl.queryByTestId;
+const qar = tl.queryAllByRole;
 const until = (f) => tl.waitFor(f, {interval: 10});
 
 const randomName = () => `db-${new Date().getTime()}`;
@@ -61,7 +62,7 @@ describe("Persisting counter values", () => {
     await until(() => expect(qid(div, "counter-list").innerText).to.be.equal("1"));
   });
 
-  it("new counter is started after saving", async () => {
+  it("new counter is started after saving the previous one", async () => {
     const div = document.createElement('div');
     mkApp(randomName(), div);
 
@@ -76,8 +77,8 @@ describe("Persisting counter values", () => {
 
     txt(div, 'Save this counter').click()
     await until(() =>
-      // text is squashed, this is -1 and 1 on a list
-      expect(qid(div, "counter-list").innerText).to.be.equal("-11"));
+      expect(qar(div, "counter-list-item")
+             .map((i) => i.innerText))
+             .to.have.ordered.members(["-1", "1"]))
   });
-
 });
