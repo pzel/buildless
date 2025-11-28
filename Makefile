@@ -1,10 +1,23 @@
-.PHONY: serve stop watch build test see lint
+.PHONY: serve serve-couchdb stop watch build test see lint
+DATA_VOLUME=buildless-couchdb-data
 
-serve:	build
-	(cd public && ../serve1355 >../serve1355.log 2>&1) &
+serve:	build serve-couchdb
+	(cd public && ../bin/serve1355 >../serve1355.log 2>&1) &
+
+serve-couchdb:
+	-docker stop buildless-couchdb
+	docker build . --file=./couchdb.dockerfile -t buildless-couchdb:latest &&\
+	docker run --rm -d --name buildless-couchdb\
+		 -e COUCHDB_USER=admin \
+		 -e COUCHDB_PASSWORD=password \
+		 -p 15984:5984 \
+		 --mount type=volume,src=$(DATA_VOLUME),dst=/opt/couchdb/data \
+	         buildless-couchdb:latest
 
 stop:
+	-docker stop buildless-couchdb
 	pkill -fec 'serve1355'
+
 
 watch:
 	watchexec --watch=./ --watch=./public --exts=js,json,m4 $(MAKE) build

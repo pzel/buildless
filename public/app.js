@@ -2,6 +2,10 @@ import { useState } from "preact/hooks";
 import { render, Component } from "preact";
 import { html }  from "htm/preact";
 
+const userDbName = (userId) =>
+  "userdb-" + (new TextEncoder().encode(userId).toHex());
+
+
 export class CounterList extends Component {
   constructor(props, _) {
     super();
@@ -29,7 +33,18 @@ export class CounterList extends Component {
 }
 
 export class App extends Component {
-  constructor(props) {super(); this.state = {count: 0, db: new PouchDB(props.dbName) }}
+  constructor(props) {
+    const userId = props.userId;
+    const dbName = userDbName(userId);
+    console.log("App starting with ", userId, dbName)
+    const db = new PouchDB(dbName);
+    super();
+    this.state = {count: 0, db: db }
+    const opts = {live: true, retry: true};
+    const remoteCouch = `http://${userId}:${userId}-password@localhost:15984/${dbName}`;
+    db.replicate.to(remoteCouch, opts, function (res) { console.log("REMOTE DB", res); });
+  }
+
   incr = () => {this.setState({count: this.state.count + 1});}
   decr = () => {this.setState({count: this.state.count - 1});}
 
@@ -56,6 +71,6 @@ export class App extends Component {
   }
 }
 
-export function mkApp(dbName, element) {
-  return render(html`<${App} dbName=${dbName}/>`, element);
+export function mkApp(userId, element) {
+  return render(html`<${App} userId=${userId}/>`, element);
 }

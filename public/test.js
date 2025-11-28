@@ -8,7 +8,21 @@ const qid = tl.queryByTestId;
 const qar = tl.queryAllByRole;
 const until = (f) => tl.waitFor(f, {interval: 10});
 
-const randomName = () => `db-${new Date().getTime()}`;
+// clear all pouches
+const dbs = await window.indexedDB.databases()
+dbs.forEach(db => { 
+  if (db.name.startsWith("_pouch"))
+    window.indexedDB.deleteDatabase(db.name)
+  });
+
+let __nextId = 2;
+
+const newUserId = () =>  {
+//  window.indexedDB.deleteDatabase(db.name)
+  const x = `user${__nextId++}`
+  console.log("new user id", x, __nextId)
+  return x
+}
 
 describe("Sanity check", () => {
   it("App is loadable", () => {
@@ -23,14 +37,14 @@ describe("Sanity check", () => {
 describe("Incrementing the current counter", () => {
   it("the starting value is 0", () => {
     const div = document.createElement('div');
-    mkApp(randomName(), div);
+    mkApp(newUserId(), div);
 
     expect(qid(div, "counter").innerText).to.be.equal("0");
   });
 
   it("can be incremented", async () => {
     const div = document.createElement('div');
-    mkApp(randomName(), div);
+    mkApp(newUserId(), div);
 
     txt(div, 'Increment').click()
     await until(() => expect(qid(div, "counter").innerText).to.be.equal("1"));
@@ -38,7 +52,7 @@ describe("Incrementing the current counter", () => {
 
   it("can be decremented too", async () => {
     const div = document.createElement('div');
-    mkApp(randomName(), div);
+    mkApp(newUserId(), div);
 
     txt(div, 'Increment').click();
     await until(() => expect(qid(div, "counter").innerText).to.be.equal("1"));
@@ -53,7 +67,7 @@ describe("Incrementing the current counter", () => {
 describe("Persisting counter values", () => {
   it("can be done after incrementing", async () => {
     const div = document.createElement('div');
-    mkApp(randomName(), div);
+    mkApp(newUserId(), div);
 
     txt(div, 'Increment').click()
     await until(() => expect(qid(div, "counter").innerText).to.be.equal("1"));
@@ -64,7 +78,7 @@ describe("Persisting counter values", () => {
 
   it("new counter is started after saving the previous one", async () => {
     const div = document.createElement('div');
-    mkApp(randomName(), div);
+    mkApp(newUserId(), div);
 
     txt(div, 'Increment').click()
     await until(() => expect(qid(div, "counter").innerText).to.be.equal("1"));

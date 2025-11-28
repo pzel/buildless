@@ -1,0 +1,26 @@
+#!/bin/bash
+
+
+for n in $(seq 1 20)
+do
+
+username="user${n}"
+payload=$(cat << EOF | jq -c
+{
+"name": "${username}",
+"password": "${username}-password",
+"roles": [],
+"type": "user"
+}
+EOF
+)
+
+
+curl -v -X PUT \
+  -H "Content-Type: application/json" \
+  -d "${payload}" \
+  http://admin:password@localhost:15984/_users/org.couchdb.user:${username} &
+
+done
+
+wait
